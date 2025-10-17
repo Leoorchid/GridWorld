@@ -1,12 +1,16 @@
 #mapDiv{
     display:grid;
-    background-color: blanchedalmond;
-    grid-template-columns: repeat(10,70px);
-    grid-template-rows: repeat(10,70px);
+    background-color: #3f1849;
+    grid-template-columns: repeat(32,25px);
+    grid-template-rows: repeat(32,25px);
     gap: 0px;
-    width:fit-content   
+    width:fit-content;
+    font-size: 10px;
    
 }
 .cell{
     border:1px solid black;
+}
+body{
+    background-color:rgb(58, 41, 41)
 }
