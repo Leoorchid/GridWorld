@@ -2,8 +2,9 @@ mapDiv = document.getElementById("mapDiv")
 reBtn = document.getElementById("reBtn")
 warBtn = document.getElementById("warBtn")
 numBtn = document.getElementById("numBtn")
-noc = 1024
+noc = 4096
 objOfCells = {}
+radi = 64
 
 function redo() {
 
@@ -35,21 +36,14 @@ reBtn.onclick = () => {
     redo()
 }
 
+
+
 function warF() {
     for (i = 1; i <= noc; i++) {
-        const newDiv = document.createElement("div")
-        if (i = i) {
-
-        }
-    }
-}
-
-function numF() {
-    for (i = 1; i <= noc; i++) {
         nDiv = document.getElementById("cell" + i)
-        nDiv.innerText = i
+        
         nDiv.style.backgroundColor = "#7c6748"
-        n = Math.round((i / 32) * 100)
+        n = Math.round((i / radi) * 100)
         ns = n.toString()
 
         if (n <= 100) {
@@ -60,20 +54,22 @@ function numF() {
         } else if (n <= 9999) {
             n = n - parseInt(ns.slice(0, 2)) * 100
 
+        }else if(n<=99999){
+            n=n - parseInt(ns.slice(0, 3)) * 100
         }
 
-        if (n == 0 && i < 513) {
+        if (n == 0 && i < (noc/2)) {
             nDiv.style.backgroundColor = "#696800ff"
 
-        } else if (n <= 0 && i > 513) {
+        } else if (n <= 0 && i > (noc/2)) {
             nDiv.style.backgroundColor = "#770000ff"
-        } else if (n <= 50 && i < 513) {
+        } else if (n <= 50 && i < (noc/2)) {
             nDiv.style.backgroundColor = "#001f61ff"
-        } else if (n >= 50 && i < 513) {
+        } else if (n >= 50 && i < (noc/2)) {
             nDiv.style.backgroundColor = "#696800ff"
-        } else if (n <= 50 && i >= 513) {
+        } else if (n <= 50 && i >= (noc/2)) {
             nDiv.style.backgroundColor = "#00581bff"
-        } else if (n >= 50 && i > 513) {
+        } else if (n > 50 && i > (noc/2)) {
             nDiv.style.backgroundColor = "#770000ff"
         }
 
@@ -88,32 +84,77 @@ function numF() {
             "target": ""
         }
     }
-    console.log(objOfCells)
-
-    for (i = 1; i <= 20; i++) {
-
-
-        for (i = 1; i <= noc; i++) {
-            if (objOfCells["cell" + (i - 1)] != null && objOfCells["cell" + i]["color"] != objOfCells["cell" + (i - 1)]["color"] && (i) % 32 != 1) {
-
-                objOfCells["cell" + (i - 1)]["at"].style.backgroundColor = objOfCells["cell" + (i)]["at"].style.backgroundColor
-                objOfCells["cell" + (i - 1)]["color"] = objOfCells["cell" + (i)]["color"]
-                console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuu " + i)
-
-
-
-            } else {
-                console.log("no " + i)
+    
+    async function h(){
+        for (t = 1; t <= 3000; t++) {
+                await delay(.1)
+                await nowWait()
+                console.log("done")
             }
-
-        }
+    }
+    h()
+    
+   
+        
 
 
     }
 
 
+
+
+warBtn.onclick = () => {
+    warF()
 }
 
-numBtn.onclick = () => {
-    numF()
+async function nowWait(wait){
+    for (i = 1; i <= noc; i++) {
+        console.log(i)
+        rng = Math.floor(Math.random()*1)+1
+        if (objOfCells["cell" + (i - 1)] != null && objOfCells["cell" + i]["color"] != objOfCells["cell" + (i - 1)]["color"] && (i) % radi != 1 && rng==1) {
+
+            objOfCells["cell"+(i-1)]["at"].style.backgroundColor = objOfCells["cell"+(i)]["at"].style.backgroundColor
+            console.log(objOfCells["cell"+(i)]["at"].style.backgroundColor)
+            objOfCells["cell" + (i - 1)]["color"] = objOfCells["cell" + (i)]["color"]
+            console.log("l " + (i))
+
+
+        }
+        if (objOfCells["cell" + (i + 1)] != null && objOfCells["cell" + i]["color"] != objOfCells["cell" + (i + 1)]["color"] && (i) % radi != 0 && rng==1 ) {
+
+            objOfCells["cell"+(i+1)]["at"].style.backgroundColor = objOfCells["cell"+(i)]["at"].style.backgroundColor
+            console.log(objOfCells["cell"+(i)]["at"].style.backgroundColor)
+            objOfCells["cell" + (i + 1)]["color"] = objOfCells["cell" + (i)]["color"]
+            console.log("r " + (i))
+
+
+        }
+        if (objOfCells["cell" + (i + radi)] != null && objOfCells["cell" + i]["color"] != objOfCells["cell" + (i + radi)]["color"] &&  rng==1 ) {
+
+            objOfCells["cell"+(i+radi)]["at"].style.backgroundColor = objOfCells["cell"+(i)]["at"].style.backgroundColor
+            console.log(objOfCells["cell"+(i)]["at"].style.backgroundColor)
+            objOfCells["cell" + (i + radi)]["color"] = objOfCells["cell" + (i)]["color"]
+            console.log("u " + (i))
+
+
+        }
+        if (objOfCells["cell" + (i - radi)] != null && objOfCells["cell" + i]["color"] != objOfCells["cell" + (i - radi)]["color"] &&  rng==1 ) {
+
+            objOfCells["cell"+(i-radi)]["at"].style.backgroundColor = objOfCells["cell"+(i)]["at"].style.backgroundColor
+            console.log(objOfCells["cell"+(i)]["at"].style.backgroundColor)
+            objOfCells["cell" + (i - radi)]["color"] = objOfCells["cell" + (i)]["color"]
+            console.log("u " + (i))
+
+
+        } else {
+          
+        }
+        console.log(i)
+        
+    }
+  
 }
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }

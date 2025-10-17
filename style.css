@@ -1,8 +1,8 @@
 #mapDiv{
     display:grid;
     background-color: #3f1849;
-    grid-template-columns: repeat(32,25px);
-    grid-template-rows: repeat(32,25px);
+    grid-template-columns: repeat(64,12px);
+    grid-template-rows: repeat(64,12px);
     gap: 0px;
     width:fit-content;
     font-size: 10px;
